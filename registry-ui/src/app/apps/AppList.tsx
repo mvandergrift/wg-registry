@@ -4,11 +4,12 @@ import { useQuery } from "@/components/generated/nextjs";
 import { useRouter } from "next/navigation";
 
 import DataGrid from "@/components/ui/DataGrid";
+import Spinner from "@/components/ui/Spinner";
 
 const AppList = () => {
     const router = useRouter();
 
-    const { data: apiList } = useQuery({
+    const { data: apiList, isLoading } = useQuery({
         operationName: "listAllApps"
     });
 
@@ -61,12 +62,19 @@ const AppList = () => {
     }
 
     return (
-        <DataGrid 
-            data={apiList?.AppList} 
-            title="Registered Applications" 
-            subtitle="User submitted applications that consume registered APIs. Select an App to see more details."
-            columns={columns} 
-            onRowClick={handleRowClick} />
+        <>
+            {isLoading
+                ? (<Spinner />)
+                : (
+                    <DataGrid
+                        data={apiList?.AppList}
+                        title="Registered Applications"
+                        subtitle="User submitted applications that consume registered APIs. Select an App to see more details."
+                        columns={columns}
+                        onRowClick={handleRowClick} />
+                )
+            }
+        </>
     )
 }
 

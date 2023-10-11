@@ -3,9 +3,10 @@
 import { useQuery, withWunderGraph } from "@/components/generated/nextjs";
 
 import ApiList from "./ApiList";
+import Spinner from "@/components/ui/Spinner";
 
 const Page = () => {
-    const { data: apiList } = useQuery({
+    const { data: apiList, isLoading } = useQuery({
         operationName: "listAllApis"
     });
 
@@ -13,7 +14,10 @@ const Page = () => {
         <div>
             <div>
                 <div className="grid gap-4">
-                    <ApiList apiList={apiList} />
+                    {isLoading
+                        ? (<Spinner />)
+                        : (<ApiList apiList={apiList} />)
+                    }
                 </div>
             </div>
         </div>
