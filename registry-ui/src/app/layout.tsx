@@ -15,10 +15,11 @@ export default function RootLayout ({ children }: { children: React.ReactNode })
                 <Navbar />
                 <Sidebar />
                 <main className='sm:ml-48 sm:p-6'>
-                    <div className='sm:mt-12'>
+                    <div className='mt-4 sm:mt-12'>
                         {children}
                     </div>
                 </main>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.8.1/flowbite.min.js"></script>
             </body>
         </html>
     );
