@@ -1,12 +1,14 @@
 "use client";
 import { useQuery } from "@/components/generated/nextjs";
 import { useRouter } from "next/navigation";
+
 import DataGrid from "@/components/ui/DataGrid";
+import Spinner from "@/components/ui/Spinner";
 
 const UserList = () => {
     const router = useRouter();
 
-    const { data: userData } = useQuery({
+    const { data: userData, isLoading } = useQuery({
         operationName: "userOverview"
     });
 
@@ -27,7 +29,7 @@ const UserList = () => {
                 return (
                     <div>{row.details.surname}</div>
                 )
-            }            
+            }
         },
         {
             name: "",
@@ -66,12 +68,18 @@ const UserList = () => {
     }
 
     return (
-        <DataGrid 
-            data={userData?.UserList} 
-            title="External Users" 
-            subtitle="List of users from Cosmo API. Exists primarily to generate traffic through Cosmo."
-            columns={columns} 
-            onRowClick={handleRowClick} />
+        <>
+            {isLoading
+                ? (<Spinner />)
+                : (
+                    <DataGrid
+                        data={userData?.UserList}
+                        title="External Users"
+                        subtitle="List of users from Cosmo API. Exists primarily to generate traffic through Cosmo."
+                        columns={columns}
+                        onRowClick={handleRowClick} />
+                )}
+        </>
     )
 }
 
