@@ -1,0 +1,14 @@
+# docker-compose.yml
+version: '2'
+services:
+
+  registry:
+    image: registry-svc
+    env_file:
+      - registry-svc/.env
+    ports:
+      - '8081:8081'
+  otel-sync:
+    image: otel-sync
+    env_file:
+      - otel-sync/.env

@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://wg:chamgeme@localhost:5432/wundergraph?schema=public"
+}
+
+model api {
+  api_id   Int       @id(map: "api_pk") @default(autoincrement())
+  api_name String?   @unique(map: "api_wg_api_id_uindex")
+  owner_id Int?
+  org_user org_user? @relation(fields: [owner_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model org_user {
+  user_id    Int     @id @default(autoincrement())
+  org_id     Int?
+  forename   String?
+  surname    String?
+  title      String?
+  department String?
+  api        api[]
+  org        org?    @relation(fields: [org_id], references: [org_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model org {
+  org_id    Int        @id @default(autoincrement())
+  org_name  String?
+  wg_org_id String?
+  org_user  org_user[]
+}

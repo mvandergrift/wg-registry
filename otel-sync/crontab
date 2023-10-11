@@ -1,0 +1,3 @@
+* * * * * echo "Crontab is working - watchdog 1"
+* * * * * node dist/index.js > /dev/stdout
+

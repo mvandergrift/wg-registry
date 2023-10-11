@@ -1,0 +1,84 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+scalar DateTime
+
+enum LocationType {
+  INTERNAL
+  EXTERNAL
+}
+
+""" 
+Api is a federated API that is exposed by a subgraph. It can be consumed by an application
+to provide value and functionality to the end user. It can be owned by an organizational unit.
+"""
+
+type Api {
+  id: Int
+  name: String!
+  federatedGraphId: String!
+  operations: [ApiOperation!]!
+  applications: [Application!]! # TODO: there should be an intermediate type here
+  description: String
+  owner: Owner
+}
+
+type Owner {
+  userId: Int!
+  forename: String!
+  surname: String!
+  email: String
+  phone: String
+  department: String
+  title: String
+  imageUrl: String  
+  description: String
+}
+
+type ApiOperation {
+  federatedGraphId: String!
+  operationId: String!
+  operationName: String!
+  duration: Float
+  accessTime: DateTime
+}
+
+type Application {
+  id: Int!  
+  name: String!
+  description: String
+  ownerId: Int
+  owner: Owner
+  apis: [Api!]! # TODO: there should be an intermediate type here
+}
+
+""" 
+ApiActivity is a list of all the operation groups that have been executed on an API from the OTEL
+perspective. It can be used as a basis to determine performance and usage of an API.
+"""
+type ApiActivity {  
+  operationName: String!
+  federationId: String!
+  subgraphId: String!
+  subgraphName: String!
+  operationType: String!
+  firstAccess: DateTime!
+  lastAccess: DateTime!  
+  duration: Duration
+}
+
+type Duration {
+  minDuration: Int
+  maxDuration: Int
+  avgDuration: Int
+  p95Duration: Int
+}
+
+type Query {
+  apiActivity: [ApiActivity!]!  
+  api: [Api!]!
+  apiByKey(apiName: String!, federatedGraphId: String!): Api
+  application: [Application!]!
+  applicationById(id: Int!): Application
+}

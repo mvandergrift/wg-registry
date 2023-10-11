@@ -1,0 +1,14 @@
+query ListAllEmployees {
+  UserList: cs_employees {
+    id
+    role {
+      title
+      department
+    }
+    details {
+      forename
+      surname
+      location
+    }   
+  }
+}

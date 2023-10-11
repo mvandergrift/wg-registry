@@ -1,0 +1,36 @@
+query ApiByKey($apiName: String!, $federatedGraphId: String!) {
+  ApiDetails: wg_apiByKey(apiName: $apiName, federatedGraphId: $federatedGraphId) {
+    id
+    name
+    federatedGraphId
+    description
+    owner {
+      userId
+      forename
+      surname
+      department
+      title
+      phone
+      email
+      imageUrl
+      description
+    }
+    operations {
+      operationId
+      operationName
+      duration
+      accessTime
+    }
+    applications {
+      id
+      name
+      owner {
+        forename
+        surname
+        title
+        department
+        imageUrl
+      }
+    }
+  }
+}

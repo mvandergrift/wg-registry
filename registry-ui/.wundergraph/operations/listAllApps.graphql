@@ -1,0 +1,22 @@
+query ListAllApplications {
+  AppList: wg_application {    
+    id
+    name
+    description
+    owner {
+      forename
+      surname
+      title
+      department
+      email
+      phone
+      imageUrl
+      description
+    }
+    apis {      
+      name
+      federatedGraphId
+      description
+    }
+  }
+}

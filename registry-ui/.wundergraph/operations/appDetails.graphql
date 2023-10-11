@@ -1,0 +1,32 @@
+query ListAllApplications($appId: Int!) {
+  AppDetails: wg_applicationById(id: $appId) {    
+    id
+    name
+    description
+    owner {
+      forename
+      surname
+      title
+      department
+      email
+      phone
+      imageUrl
+      description
+    }
+    apis {      
+      name
+      federatedGraphId
+      description
+      owner {
+        forename
+        surname
+        title
+        department
+        email
+        phone
+        imageUrl
+        description
+      }      
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "wundergraph-nextjs-app-dir",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "wunderctl generate --env .env.local && concurrently \"wunderctl up --env .env.local\" \"next dev\"",
+    "wundergraph": "wunderctl up --env .env.local --debug",
+    "build:wundergraph": "wunderctl generate --debug --pretty-logging=true",
+    "build": "wunderctl generate --pretty-logging=true && next build",
+    "lint": "next lint",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@auth0/nextjs-auth0": "^3.2.0",
+    "@graphql-yoga/node": "^2.13.13",
+    "@types/node": "^20.2.4",
+    "@types/react": "^18.2.7",
+    "@types/react-dom": "^18.2.4",
+    "@wundergraph/nextjs": "^0.14.5",
+    "@wundergraph/sdk": "^0.179.0",
+    "flowbite": "^1.8.1",
+    "flowbite-react": "^0.6.4",
+    "graphql": "^16.6.0",
+    "next": "^13.4.4",
+    "react": "^18.2.0",
+    "react-apexcharts": "^1.4.1",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.6.2",
+    "@types/jest": "^29.5.3",
+    "@typescript-eslint/eslint-plugin": "^6.7.4",
+    "autoprefixer": "^10.4.16",
+    "concurrently": "^8.0.1",
+    "cross-fetch": "^3.1.6",
+    "eslint": "^8.50.0",
+    "eslint-config-standard-with-typescript": "^39.1.0",
+    "eslint-plugin-import": "^2.28.1",
+    "eslint-plugin-jsx-a11y": "^6.7.1",
+    "eslint-plugin-n": "^16.1.0",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "jest": "^29.6.2",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2"
+  }
+}
