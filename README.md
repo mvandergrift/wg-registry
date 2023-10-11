@@ -3,7 +3,13 @@
 <h3>Accelerating productivity growth through improved collaboration</h3>
 <hr />
 </div>
-<br/>
+
+<div align="center">
+  <img src="https://github.com/mvandergrift/wg-registry/actions/workflows/otel-sync-ci.yaml/badge.svg" />
+  <img src="https://github.com/mvandergrift/wg-registry/actions/workflows/wg-ci.yaml/badge.svg" />
+  <img src="https://github.com/mvandergrift/wg-registry/actions/workflows/registry-svc-ci.yaml/badge.svg" />
+</div>
+<br />
 
 API Registry is a proof-of-concept API registry management system for simplifying the complexities of modern application service dependencies.
 <p/>
