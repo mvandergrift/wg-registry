@@ -17,9 +17,9 @@ The repository consists of the following components:
 
 - [otel-sync](./otel-sync): otel sync is the bridge between telemetry & trace data stored in ClickHouse and the registration database that exists in Postgres. It detects APIs by finding operations, parsing their contents, and attemtping to find the top-level selections in the AST.
 
-- [registry-svc](./registry-svc): The registry service is the API used to access API registration data. It is used by the `registry-ui` to build the dashboard.
+- [registry-svc](./registry-svc): The registry service is the API used to access the core registry data, which includes APIs collected from `otel-sync`, applications recorded through the `registry-ui`, owners who have claimed APIs, and the dependencies between them. It is used by the `registry-ui` to build the dashboard.
 
-- [UI](./registry-ui): An easy-to-use UI showcasing the potential use of an API registration service, the UI serves as an example of the power a dashboard interface can bring to the management of large-scale API integrations.
+- [registry-ui](./registry-ui): An easy-to-use UI showcasing the potential use of an API registration service, the UI serves as an example of the power a dashboard interface can bring to manage large-scale API integrations.
 
 ## Getting Started
 
