@@ -32,5 +32,10 @@ query ApiByKey($apiName: String!, $federatedGraphId: String!) {
         imageUrl
       }
     }
+    versions {
+      id
+      createdAt
+      compositionErrors
+    }
   }
 }

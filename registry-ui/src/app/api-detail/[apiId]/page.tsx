@@ -1,21 +1,32 @@
 "use client"
 import { useState } from "react";
+import { useQuery, withWunderGraph } from "@/components/generated/nextjs";
 
 import ApiOperations from "./ApiOperations";
 import ApiOwner from "./ApiOwner";
 import ApiApplications from "./ApiApplications";
+import ApiVersions from "./ApiVersions";
 
 const tabMode = {
     DEPENDANT_APPLICATIONS: 0,
-    RECENT_OPERATIONS: 1
+    RECENT_OPERATIONS: 1,
+    VERIONS: 2
 }
 
-export default function Page ({ params }: { params: { apiId: string } }) {
+const Page = ({ params }: { params: { apiId: string } }) => {
     const [tabState, setTabState] = useState(tabMode.DEPENDANT_APPLICATIONS);
 
     const decodedApiId = decodeURIComponent(params.apiId);
     const federatedGraphId = decodedApiId.split("|")[0];
     const apiName = decodedApiId.split("|")[1];
+
+    const { data: apiList } = useQuery({
+        operationName: "apiDetails",
+        input: {
+            federatedGraphId,
+            apiName
+        }
+    });
 
     function buildTabClasses (tabIndex: number) {
         let css = tabState === tabIndex ? "text-blue-600 border-blue-600" : "text-gray-400 border-transparent";
@@ -26,11 +37,13 @@ export default function Page ({ params }: { params: { apiId: string } }) {
     const GridComponent = () => {
         switch (tabState) {
             case tabMode.DEPENDANT_APPLICATIONS:
-                return <ApiApplications apiName={apiName} federatedGraphId={federatedGraphId} />;
+                return <ApiApplications apiList={apiList} />;
             case tabMode.RECENT_OPERATIONS:
-                return <ApiOperations apiName={apiName} federatedGraphId={federatedGraphId} />;
+                return <ApiOperations apiList={apiList} />;
+            case tabMode.VERIONS:
+                return <ApiVersions apiList={apiList} />;
             default:
-                return <ApiApplications apiName={apiName} federatedGraphId={federatedGraphId} />;
+                return <ApiApplications apiList={apiList} />;
         }
     }
 
@@ -54,6 +67,10 @@ export default function Page ({ params }: { params: { apiId: string } }) {
                                     <a className={buildTabClasses(tabMode.RECENT_OPERATIONS)}
                                         aria-current="page">Recent Operations</a>
                                 </li>
+                                <li className="mr-2" onClick={() => { setTabState(tabMode.VERIONS); }}>
+                                    <a className={buildTabClasses(tabMode.VERIONS)}
+                                        aria-current="page">Version History</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -63,3 +80,5 @@ export default function Page ({ params }: { params: { apiId: string } }) {
         </div>
     )
 }
+
+export default withWunderGraph(Page);
