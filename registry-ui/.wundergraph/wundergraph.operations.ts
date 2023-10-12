@@ -11,14 +11,14 @@ export default configureWunderGraphOperations<OperationsConfiguration>({
 		queries: (config) => ({
 			...config,
 			caching: {
-				enable: false,
+				enable: true,
 				staleWhileRevalidate: 60,
 				maxAge: 60,
 				public: true,
 			},
 			liveQuery: {
 				enable: true,
-				pollingIntervalSeconds: 1,
+				pollingIntervalSeconds: 60,
 			},
 		}),
 		mutations: (config) => ({

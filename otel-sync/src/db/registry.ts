@@ -44,8 +44,8 @@ export async function updateRegistry(dataset: ApiRow[]) {
                 }
             }
 
-            if (i % COMMIT_BUFFER_THRESHOLD === 0) {
-                logger.info(`Processing ${i} of ${dataset.length}`);
+            if (i % COMMIT_BUFFER_THRESHOLD === 0 || i === dataset.length - 1) {
+                logger.info(`Processing ${i + 1} of ${dataset.length}`);
                 await Promise.all(dbOperations);
                 dbOperations.length = 0;
             }

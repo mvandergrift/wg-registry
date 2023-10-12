@@ -14,3 +14,4 @@ async function main() {
 logger.info("Starting API Registry Update");
 dotenv.config();
 main();
+logger.info("Finished API Registry Update");
