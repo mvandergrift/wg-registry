@@ -13,12 +13,12 @@ import (
 	"go.uber.org/zap"
 )
 
-type BunCn struct {
+type WunderGraphCn struct {
 	Db     *bun.DB
 	Logger *zap.Logger
 }
 
-func NewBunCn(log *zap.Logger) *BunCn {
+func NewWunderGraphCn(log *zap.Logger) *WunderGraphCn {
 	gotenv.Load()
 	host := os.Getenv("DB_HOST")
 	user := os.Getenv("DB_USER")
@@ -30,7 +30,7 @@ func NewBunCn(log *zap.Logger) *BunCn {
 
 	cn := bun.NewDB(sqldb, pgdialect.New())
 
-	return &BunCn{
+	return &WunderGraphCn{
 		Db:     cn,
 		Logger: log,
 	}

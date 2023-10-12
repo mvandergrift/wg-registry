@@ -17,7 +17,8 @@ func main() {
 		fx.Provide(
 			zap.NewExample,
 			db.NewClickCn,
-			db.NewBunCn,
+			db.NewControlPanelCn,
+			db.NewWunderGraphCn,
 			service.NewHTTPServer,
 			AsServiceMux(service.NewServeMux),
 			AsAuthMiddleware(auth.NewAuth0),

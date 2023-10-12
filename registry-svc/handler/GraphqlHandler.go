@@ -19,14 +19,14 @@ type GraphQLHandler struct {
 	Logger *zap.Logger
 }
 
-func NewGraphQLHandler(db *db.ClickCn, bun *db.BunCn, log *zap.Logger) *GraphQLHandler {
+func NewGraphQLHandler(db *db.ClickCn, wg *db.WunderGraphCn, cp *db.ControlPanelCn, log *zap.Logger) *GraphQLHandler {
 	gotenv.Load()
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{Cn: db, Bun: bun}}))
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{Cn: db, Wg: wg, Cp: cp}}))
 
 	return &GraphQLHandler{
 		Port:   port,
@@ -45,6 +45,5 @@ func (*GraphQLHandler) Pattern() string {
 }
 
 func (*GraphQLHandler) RequiresAuth() bool {
-	// TODO: Auth is disabled until I hear back from WunderGraph on how to properly introspect a protected API
 	return false
 }

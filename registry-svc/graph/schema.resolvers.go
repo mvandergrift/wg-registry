@@ -15,7 +15,7 @@ import (
 func (r *apiResolver) Operations(ctx context.Context, obj *model.API) ([]*model.APIOperation, error) {
 	var apiAccess []*model.APIOperation
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Model(&apiAccess).
 		Column("federated_graph_id").
@@ -38,7 +38,7 @@ func (r *apiResolver) Operations(ctx context.Context, obj *model.API) ([]*model.
 func (r *apiResolver) Applications(ctx context.Context, obj *model.API) ([]*model.Application, error) {
 	var applications []*model.Application
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Model(&applications).
 		ColumnExpr("application.app_id as id").
@@ -61,7 +61,7 @@ func (r *apiResolver) Applications(ctx context.Context, obj *model.API) ([]*mode
 func (r *apiResolver) Owner(ctx context.Context, obj *model.API) (*model.Owner, error) {
 	var owner []*model.Owner
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Model(&owner).
 		Column("user_id").
@@ -87,11 +87,34 @@ func (r *apiResolver) Owner(ctx context.Context, obj *model.API) (*model.Owner, 
 	return owner[0], nil
 }
 
+// Versions is the resolver for the versions field.
+func (r *apiResolver) Versions(ctx context.Context, obj *model.API) ([]*model.SchemaVersion, error) {
+	var versions []*model.SchemaVersion
+
+	db := r.Cp.Db
+	err := db.NewSelect().
+		Model(&versions).
+		Column("id").
+		Column("created_at").
+		Column("schema_sdl").
+		Column("composition_errors").
+		Column("router_config").
+		Where("target_id = ?", obj.FederatedGraphID).
+		Order("created_at DESC").
+		Scan(ctx)
+
+	if err != nil {
+		return nil, fmt.Errorf("error querying Versions: %w", err)
+	}
+
+	return versions, nil
+}
+
 // Owner is the resolver for the owner field.
 func (r *applicationResolver) Owner(ctx context.Context, obj *model.Application) (*model.Owner, error) {
 	var owner []*model.Owner
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Model(&owner).
 		Column("user_id").
@@ -121,7 +144,7 @@ func (r *applicationResolver) Owner(ctx context.Context, obj *model.Application)
 func (r *applicationResolver) Apis(ctx context.Context, obj *model.Application) ([]*model.API, error) {
 	var apis []*model.API
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Distinct().
 		Model(&apis).
@@ -191,7 +214,7 @@ func (r *queryResolver) APIActivity(ctx context.Context) ([]*model.APIActivity, 
 func (r *queryResolver) API(ctx context.Context) ([]*model.API, error) {
 	var apis []*model.API
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Model(&apis).
 		ColumnExpr("api_name as name").
@@ -213,7 +236,7 @@ func (r *queryResolver) API(ctx context.Context) ([]*model.API, error) {
 func (r *queryResolver) APIByKey(ctx context.Context, apiName string, federatedGraphID string) (*model.API, error) {
 	var apis model.API
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Model(&apis).
 		ColumnExpr("api_name as name").
@@ -235,7 +258,7 @@ func (r *queryResolver) APIByKey(ctx context.Context, apiName string, federatedG
 func (r *queryResolver) Application(ctx context.Context) ([]*model.Application, error) {
 	var applications []*model.Application
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Model(&applications).
 		Distinct().
@@ -258,7 +281,7 @@ func (r *queryResolver) Application(ctx context.Context) ([]*model.Application, 
 func (r *queryResolver) ApplicationByID(ctx context.Context, id int) (*model.Application, error) {
 	var application model.Application
 
-	db := r.Bun.Db
+	db := r.Wg.Db
 	err := db.NewSelect().
 		Model(&application).
 		ColumnExpr("application.app_id as id").

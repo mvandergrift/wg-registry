@@ -7,6 +7,7 @@ import (
 //go:generate go run github.com/99designs/gqlgen generate
 
 type Resolver struct {
-	Cn  *db.ClickCn
-	Bun *db.BunCn
+	Cn *db.ClickCn
+	Wg *db.WunderGraphCn
+	Cp *db.ControlPanelCn
 }
