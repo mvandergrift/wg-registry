@@ -22,10 +22,7 @@ type Auth0 struct {
 
 // NewAuth0 returns a new Auth0 instance.
 func NewAuth0() Auth0 {
-	err := gotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	gotenv.Load()
 
 	return Auth0{
 		auth0Audience: os.Getenv("AUTH0_AUDIENCE"),
