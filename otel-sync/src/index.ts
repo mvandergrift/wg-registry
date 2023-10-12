@@ -7,11 +7,12 @@ import { updateRegistry } from "./db/registry";
 const logger = pino({});
 
 async function main() {
+    logger.info("Starting API Registry Update");
     const dataset = await fetchApiData();
     await updateRegistry(dataset);
+    logger.info("Finished API Registry Update");
 }
 
-logger.info("Starting API Registry Update");
+
 dotenv.config();
 main();
-logger.info("Finished API Registry Update");
