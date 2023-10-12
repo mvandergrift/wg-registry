@@ -35,6 +35,7 @@ module.exports = {
         "extra-semi": "off",        
         "react/scope": "off",
         "react/react-in-jsx-scope": "off",
+        "@typescript-eslint/space-before-function-paren": "off",
         "@typescript-eslint/indent": ["warn", 4],
         "@typescript-eslint/quotes": ["warn", "double"],
         "@typescript-eslint/explicit-function-return-type": "off",
