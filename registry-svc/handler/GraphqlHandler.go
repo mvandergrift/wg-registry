@@ -36,7 +36,7 @@ func NewGraphQLHandler(db *db.ClickCn, wg *db.WunderGraphCn, cp *db.ControlPanel
 }
 
 func (h *GraphQLHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	h.Logger.Info("Handling request", zap.String("path", r.URL.Path))
+	h.Logger.Debug("Handling request", zap.String("path", r.URL.Path))
 	h.Server.ServeHTTP(w, r)
 }
 

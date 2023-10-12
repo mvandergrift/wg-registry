@@ -30,7 +30,7 @@ func NewPlaygroundHandler(log *zap.Logger) PlaygroundHandler {
 }
 
 func (h PlaygroundHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	h.Logger.Info("Handling request", zap.String("path", r.URL.Path))
+	h.Logger.Debug("Handling request", zap.String("path", r.URL.Path))
 	h.Server.ServeHTTP(w, r)
 }
 
