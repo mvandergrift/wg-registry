@@ -28,6 +28,14 @@ type Duration struct {
 	P95Duration *int `json:"p95Duration,omitempty"`
 }
 
+type SchemaVersion struct {
+	ID                string  `json:"id"`
+	CreatedAt         string  `json:"createdAt"`
+	SchemaSdl         string  `json:"schemaSdl"`
+	CompositionErrors *string `json:"compositionErrors,omitempty"`
+	RouterConfig      *string `json:"routerConfig,omitempty"`
+}
+
 type LocationType string
 
 const (

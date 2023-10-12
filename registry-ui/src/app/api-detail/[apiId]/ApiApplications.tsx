@@ -1,16 +1,8 @@
 "use client";
-import { useQuery } from "@/components/generated/nextjs";
+import type { ApiDetailsResponseData } from "@/components/generated/models";
 import DataGrid from "@/components/ui/DataGrid";
 
-const ApiApplications = ({ apiName, federatedGraphId }: { apiName: string, federatedGraphId: string }) => {
-    const { data: apiList } = useQuery({
-        operationName: "apiDetails",
-        input: {
-            federatedGraphId,
-            apiName
-        }
-    });
-
+const ApiApplications = ({ apiList }: { apiList?: ApiDetailsResponseData }) => {    
     const columns = [
         {
             name: "name",

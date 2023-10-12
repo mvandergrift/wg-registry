@@ -92,6 +92,11 @@ export interface ApiDetailsResponseData {
 				imageUrl?: string;
 			};
 		}[];
+		versions: {
+			id: string;
+			createdAt: string;
+			compositionErrors?: string;
+		}[];
 	};
 }
 

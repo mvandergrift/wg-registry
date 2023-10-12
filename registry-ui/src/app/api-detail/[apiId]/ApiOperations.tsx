@@ -1,5 +1,5 @@
 "use client";
-import { useQuery } from "@/components/generated/nextjs";
+import type { ApiDetailsResponseData } from "@/components/generated/models";
 import DataGrid from "@/components/ui/DataGrid";
 
 function formatTime (time?: string) {
@@ -12,15 +12,7 @@ function formatDuration (duration?: number) {
     return duration ? `${(duration / 1000 / 1000).toFixed(2)} ms` : ""
 }
 
-const ApiOperations = ({ apiName, federatedGraphId }: { apiName: string, federatedGraphId: string }) => {
-    const { data: apiList } = useQuery({
-        operationName: "apiDetails",
-        input: {
-            federatedGraphId,
-            apiName
-        }
-    });
-
+const ApiOperations = ({ apiList }: { apiList?: ApiDetailsResponseData }) => {
     const columns = [
         {
             name: "",

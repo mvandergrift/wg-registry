@@ -22,6 +22,7 @@ type Api {
   applications: [Application!]! # TODO: there should be an intermediate type here
   description: String
   owner: Owner
+  versions: [SchemaVersion!]!
 }
 
 type Owner {
@@ -73,6 +74,14 @@ type Duration {
   maxDuration: Int
   avgDuration: Int
   p95Duration: Int
+}
+
+type SchemaVersion {
+  id: String!
+  createdAt: DateTime!
+  schemaSdl: String!
+  compositionErrors: String
+  routerConfig: String
 }
 
 type Query {
