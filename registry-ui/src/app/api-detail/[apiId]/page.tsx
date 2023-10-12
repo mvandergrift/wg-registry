@@ -35,7 +35,7 @@ export default function Page ({ params }: { params: { apiId: string } }) {
     }
 
     return (
-        <div >
+        <div className="pt-8" >
             <div>
                 <div className="grid gap-4 max-w-screen-lg text-gray-400 dark:text-gray-500 flex items-center rounded  ">
                     <div>
