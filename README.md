@@ -3,7 +3,7 @@
 <h3>Accelerating productivity growth through improved collaboration</h3>
 <hr />
 </div>
-
+<hr />
 <div align="center">
   <img src="https://github.com/mvandergrift/wg-registry/actions/workflows/otel-sync-ci.yaml/badge.svg" />
   <img src="https://github.com/mvandergrift/wg-registry/actions/workflows/wg-ci.yaml/badge.svg" />
